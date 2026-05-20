@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알스형 SD (Sentence Diagram)에 대한 기대</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-light: #EEF2FF;
+            --secondary-color: #10B981;
+            --text-main: #1F2937;
+            --text-muted: #4B5563;
+            --bg-body: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--bg-body);
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            word-break: keep-all;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            word-break: keep-all;
+        }
+
+        .highlight-text {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Comparison Section */
+        .comparison-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comparison-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+
+        .comparison-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-title span {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .comparison-content p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        .comparison-content p:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Features Section */
+        .features-section h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-top: 10px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        /* Keyword Highlights in text */
+        .kw {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Conclusion Section */
+        .conclusion {
+            background-color: var(--primary-light);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: keep-all;
+        }
+
+        .conclusion p:last-child {
+            margin-bottom: 0;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Footer Note */
+        .footer-note {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            background-color: var(--text-main);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .card-number {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>알스형 SD (Sentence Diagram)에 대한 기대</h1>
+            <p>구문도해, 구문분석에 남다른 관심을 가져온 입장에서 최근 본 알스형 문장도해(Sentence Diagram)은 획기적인 학습도구가 될 수 있다는 판단이 들었습니다.<br><br><span class="highlight-text">천일문 시리즈</span>를 알스식 SD로 분석하면 학습효과가 배가 될 듯싶습니다.</p>
+        </header>
+
+        <section class="comparison-box">
+            <div class="comparison-title">
+                <span>VS</span> 전통적인 문장 도해 vs 알스식 SD
+            </div>
+            <div class="comparison-content">
+                <p>기존의 전통적인 구문 도해는 문장 구조를 잡는 데 확실히 효과적이지만, 관사 하나, 전치사 하나까지 선을 다 쪼개서 그려야 하니 <strong>"우리 학원 애들이 따라 할 수 있을까?", "복잡해서 중간에 지쳐버리진 않을까?"</strong> 걱정되셔서 선뜻 도입하기 주저하셨을 겁니다.</p>
+                <p>하지만 이번에 나온 알스형 SD는 아이들을 괴롭히던 복잡하고 머리 아픈 과정은 싹 덜어내고, 진짜 필요한 장점만 남긴 완전 <span class="kw">'학생 친화적인 실전용 도해'</span>라 기대가 정말 큽니다.</p>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2>알스형 SD, 왜 학원에 꼭 필요할까요?</h2>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-number">1</div>
+                    <h3>단어 하나하나 쪼개기 대신<br><span class="kw">'덩어리(Chunk)'</span>로 쉽게!</h3>
+                    <p>예전엔 전치사, 관사, 명사를 다 따로 분해해서 그렸다면, 알스형은 의미가 통하는 큰 덩어리를 하나로 딱 묶어서 보여줍니다. 아이들이 잘게 쪼개진 문법 규칙에 지치지 않고, 문장을 큼직큼직하게 묶어 읽는 '직독직해'의 감을 자연스럽게 익히게 됩니다.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-number">2</div>
+                    <h3>복잡한 선 긋기 스트레스 대신<br>재밌는 <span class="kw">'퍼즐 맞추기'</span>!</h3>
+                    <p>학생들에게 빈 종이를 주고 "처음부터 선 다 그어봐!" 하지 않습니다. 이미 알기 쉽게 짜인 <strong>'구조도'</strong>를 보면서, 알맞은 의미 덩어리를 퍼즐 조각 맞추듯 제자리에 쏙쏙 채워 넣는 방식입니다. 도형 그리는 규칙 외우느라 힘 뺄 필요 없이, 문장의 뼈대와 살을 구분하는 핵심만 아주 영리하게 가져가는 거죠.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-number">3</div>
+                    <h3>머릿속에 사진처럼 찍히는<br><span class="kw">'내신 서술형/영작 치트키'</span></h3>
+                    <p>글씨가 아니라 시각화된 '구조'로 문장을 접하니까 아이들 머릿속에 이미지로 쏙 각인됩니다. 중심 뼈대와 수식어의 위치가 눈에 딱 들어오기 때문에, 긴 문장을 만나도 해석이 안 꼬이고, 특히 한글을 영어로 바꾸는 영작이나 내신 서술형 문제를 풀 때 어순 배치를 아주 쉽게 해냅니다.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-number">4</div>
+                    <h3>복잡한 문법 용어 몰라도 OK!<br>최소한의 <span class="kw">'자리 이름'</span>만 알면 끝!</h3>
+                    <p>아이들이 영어를 포기하는 가장 큰 이유 중 하나가 바로 끝도 없는 어려운 문법 용어 때문이죠. 알스형 SD는 복잡한 문법 지식을 요구하지 않습니다. 주어, 동사, 목적어, 보어, 수식어 딱 5가지의 직관적인 '자리 이름'만 사용하기 때문입니다. 문법 베이스가 약한 학생들도 "아, 이 자리에 이 덩어리가 들어가는구나" 하고 위치 감각으로 쉽게 익힐 수 있어 거부감 없이 접근할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="conclusion">
+            <p>결론적으로 알스형 SD는 아이들에게 또 하나의 어려운 문법 숙제를 얹어주는 게 아니라, 복잡한 영어 문장을 쉽게 조립할 수 있게 도와주는 <strong>'시각적 가이드라인'</strong>입니다.</p>
+            <p>문법 용어만 나오면 졸던 아이들도 구조도를 보며 "아, 영어가 이렇게 블록처럼 조립되는 거였네요?" 하고 직관적으로 받아들입니다. 원장님들이 우려하셨던 진입 장벽을 완전히 낮춘 확실한 툴이니, 부담 없이 학원에 도입해 보셔도 정말 좋을 것 같습니다!</p>
+        </section>
+
+        <div class="footer-note">
+            💡 알스형 SD는 많은 사랑을 받는 "j키"에 대한 아쉬움을 말끔해 해소시키리라 확신합니다.
+        </div>
+
+    </div>
+
+</body>
+</html>
